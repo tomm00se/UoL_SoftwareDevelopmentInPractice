@@ -1,35 +1,35 @@
-# # Example 1
-# number = 1 + 2 * 3 / 4.0
-# print(number) # 2.5
+# Example 1
+number = 1 + 2 * 3 / 4.0
+print(number) # 2.5
 
-# # Example 2
-# remainder = 11 % 3 # % is the modulo operator
-# print(remainder) # 2
+# Example 2
+remainder = 11 % 3 # % is the modulo operator
+print(remainder) # 2
 
-# # Example 3
-# squared = 7 ** 2 # ** is the exponentiation operator
-# cubed = 2 ** 3
-# print(squared) # 49
-# print(cubed) # 8
+# Example 3
+squared = 7 ** 2 # ** is the exponentiation operator
+cubed = 2 ** 3
+print(squared) # 49
+print(cubed) # 8
 
-# # Example 4
-# helloworld = "hello" + " " + "world" # + is the string concatenation operator (as well as integer addition)
-# print(helloworld)
+# Example 4
+helloworld = "hello" + " " + "world" # + is the string concatenation operator (as well as integer addition)
+print(helloworld)
 
-# # Example 5
-# lotsofhellos = "hello" * 10 # * is the string repetition operator
-# print(lotsofhellos) # hellohellohellohellohellohellohellohellohellohello
+# Example 5
+lotsofhellos = "hello" * 10 # * is the string repetition operator
+print(lotsofhellos) # hellohellohellohellohellohellohellohellohellohello
 
-# # Example 6
-# even_numbers = [2,4,6,8] # [] is the list operator
-# odd_numbers = [1,3,5,7]
-# all_numbers = odd_numbers + even_numbers # + is the list concatenation operator
-# all_numbers_inverse = even_numbers + odd_numbers
-# print(all_numbers) # [1, 3, 5, 7, 2, 4, 6, 8]
-# print(all_numbers_inverse) # [2, 4, 6, 8, 1, 3, 5, 7]
+# Example 6
+even_numbers = [2,4,6,8] # [] is the list operator
+odd_numbers = [1,3,5,7]
+all_numbers = odd_numbers + even_numbers # + is the list concatenation operator
+all_numbers_inverse = even_numbers + odd_numbers
+print(all_numbers) # [1, 3, 5, 7, 2, 4, 6, 8]
+print(all_numbers_inverse) # [2, 4, 6, 8, 1, 3, 5, 7]
 
-# # Example 7
-# print([1,2,3] * 3) # [1, 2, 3, 1, 2, 3, 1, 2, 3] * is the list repetition operator
+# Example 7
+print([1,2,3] * 3) # [1, 2, 3, 1, 2, 3, 1, 2, 3] * is the list repetition operator
 
 # Exercise 1
 
