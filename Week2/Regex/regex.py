@@ -100,3 +100,140 @@ re.search(r'\bbar', 'foobar')
 # Example 19: Using the \B meta-character which matches if a string is not at the beginning or end of a word
 re.search(r'\Bfoo\B', 'barfoobaz')
 # Output: <re.Match object; span=(3, 6), match='foo'>
+
+# Example 20: Using the * meta-character which matches zero or more repetitions of the preceding regular expression
+re.search('foo-*bar', 'foobar')                     # Zero dashes
+# Output: <_sre.SRE_Match object; span=(0, 6), match='foobar'>
+re.search('foo-*bar', 'foo-bar')                    # One dash
+# Output: <_sre.SRE_Match object; span=(0, 7), match='foo-bar'>
+re.search('foo-*bar', 'foo--bar')                   # Two dashes
+# Output: <_sre.SRE_Match object; span=(0, 8), match='foo--bar'>
+
+# Example 21: Using the + meta-character which matches one or more repetitions of the preceding regular expression 
+re.search('foo-+bar', 'foobar')                     # Zero dashes
+# Output: None
+re.search('foo-+bar', 'foo-bar')                    # One dash
+# Output: <_sre.SRE_Match object; span=(0, 7), match='foo-bar'>
+re.search('foo-+bar', 'foo--bar')                   # Two dashes
+# Output: <_sre.SRE_Match object; span=(0, 8), match='foo--bar'>
+
+# Example 22: Using the ? meta-character which matches zero or one repetitions of the preceding regular expression
+re.search('foo-?bar', 'foobar')
+# Output: <_sre.SRE_Match object; span=(0, 6), match='foobar'>
+re.search('foo-?bar', 'foo-bar')
+# Output: <_sre.SRE_Match object; span=(0, 7), match='foo-bar'>
+re.search('foo-?bar', 'foo--bar')
+# Output: None
+
+# Example 23: Greedy vs. non-greedy matching
+# Greedy matching
+re.search('<.*>', '%<foo> <bar> <baz>%')
+# Output: <_sre.SRE_Match object; span=(1, 18), match='<foo> <bar> <baz>'>
+
+# Non-greedy matching
+re.search('<.*?>', '%<foo> <bar> <baz>%')
+# Output: <_sre.SRE_Match object; span=(1, 6), match='<foo>'>
+# The *? construct matches zero or more characters in a non-greedy fashion.
+# Whereas the * construct matches zero or more characters in a greedy fashion.
+
+# Example 24: Using the {m} meta-character which matches exactly m repetitions of the preceding regular expression
+re.search('x-{3}x', 'x---x')
+# Output: <_sre.SRE_Match object; span=(0, 5), match='x---x'>
+re.search('x-{3}x', 'x--x')
+# Output: None
+# The regular expression x-{3}x matches exactly three dashes between the x characters.
+
+# Example 25: Using the {m,n} meta-character which matches from m to n repetitions of the preceding regular expression
+re.search('x-{1,3}x', 'x-x')
+# Output: <_sre.SRE_Match object; span=(0, 3), match='x-x'>
+re.search('x-{1,3}x', 'x---x')
+# Output: <_sre.SRE_Match object; span=(0, 5), match='x---x'>
+# The regular expression x-{1,3}x matches between one and three dashes between the x characters.
+
+# Example 26: Using the {m,n}? meta-character which matches from m to n repetitions of the preceding regular expression in a non-greedy fashion
+re.search('x-{1,3}?x', 'x---x')
+# Output: <_sre.SRE_Match object; span=(0, 3), match='x-x'>
+re.search('x-{1,3}?x', 'x----x')
+# Output: <_sre.SRE_Match object; span=(0, 4), match='x--x'>
+# The regular expression x-{1,3}?x matches between one and three dashes between the x characters in a non-greedy fashion.
+
+# Grouping Constructs and Backreferences
+# Grouping constructs allow parts of a regular expression to be treated as a single unit.
+# Grouping: A group represents a single syntactic entity.
+# Capturing: Some grouping constructs also capture the portion of the string that matches the subexpression inside the group.
+
+# Example 27: Using the (...) meta-character to create a group
+re.search('(bar)', 'foo bar baz')
+# Output: <_sre.SRE_Match object; span=(4, 7), match='bar'>
+re.search('(bar)+', 'foo barbar baz')
+# Output: <_sre.SRE_Match object; span=(4, 10), match='barbar'>
+re.search('(\w+),(\w+),(\w+)', 'foo,quux,baz')
+# Output: <_sre.SRE_Match object; span=(0, 12), match='foo,quux,baz'>
+# The regular expression (\w+),(\w+),(\w+) matches three words separated by commas.
+groupings = re.search('(\w+),(\w+),(\w+)', 'foo,quux,baz')
+print(groupings.group(0)) # Output: foo,quux,baz
+print(groupings.group(1)) # Output: foo
+print(groupings.group(2)) # Output: quux
+print(groupings.group(3)) # Output: baz
+
+# Backreferences: A backreference allows a previously matched group to be matched again.
+# Example 28: Using the \1 meta-character to match the same text as most recently matched by the 1st capturing group
+regex = r'(\w+),\1'
+re.search(regex, 'foo,foo')
+# Output: <_sre.SRE_Match object; span=(0, 7), match='foo,foo'>
+# Using regex as a variable to store the regular expression.
+
+# Example 29: Using the (?P<name>...) meta-character to create a named group
+m = re.search('(?P<w1>\w+),(?P<w2>\w+),(?P<w3>\w+)', 'foo,quux,baz')
+print(m.group('w1')) # Output: foo
+print(m.group('w2')) # Output: quux
+print(m.group('w3')) # Output: baz
+# The regular expression (?P<w1>\w+),(?P<w2>\w+),(?P<w3>\w+) matches three words separated by commas.
+# The named groups are w1, w2, and w3.
+
+# Example 30: Using the (?P=name) meta-character to match the same text as most recently matched by the named group name
+regex = r'(?P<word>\w+),(?P=word)'
+re.search(regex, 'foo,foo')
+# Output: <_sre.SRE_Match object; span=(0, 7), match='foo,foo'>
+# The regular expression (?P<word>\w+),(?P=word) matches the same word separated by a comma.
+
+# Example 31: Using the (?:...) meta-character to create a non-capturing group
+m = re.search('(\w+),(?:\w+),(\w+)', 'foo,quux,baz')
+print(m.groups()) # Output: ('foo', 'baz')
+# The regular expression (\w+),(?:\w+),(\w+) matches three words separated by commas.
+# The middle word is not captured.
+m.group(0) # Output: 'foo,quux,baz'
+m.group(1) # Output: 'foo'
+m.group(2) # Output: 'baz'
+
+# Example 32: Using the (?(<n>)<yes-regex>|<no-regex>) meta-character to match the yes-regex if the n-th capturing group has matched, else match the no-regex
+re.search(r'(?:(\d+)|(\w+))', '123')
+# Output: <_sre.SRE_Match object; span=(0, 3), match='123'>
+re.search(r'(?:(\d+)|(\w+))', 'abc')
+# Output: <_sre.SRE_Match object; span=(0, 3), match='abc'>
+# The regular expression (?:(\d+)|(\w+)) matches either one or more digits or one or more word characters.
+
+# Example 33: Lookahead and Lookbehind Assertions
+# Lookahead: A lookahead assertion is used to match a pattern only if it’s followed by another pattern.
+# Lookbehind: A lookbehind assertion is used to match a pattern only if it’s preceded by another pattern.
+
+re.search('foo(?=[a-z])', 'foobar')
+# The lookahead expression foo(?=[a-z]) matches foo only if it’s followed by a lowercase letter.
+# Output: <_sre.SRE_Match object; span=(0, 3), match='foo'>
+re.search('(?<=[a-z])bar', 'foobar')
+# Output: <_sre.SRE_Match object; span=(3, 6), match='bar'> 
+# The lookbehind expression (?<=[a-z])bar matches bar only if it’s preceded by a lowercase letter.
+
+# Example 34: Using the (?<!<lookbehind_regex>) meta-character to match if the current position in the string is not preceded by a match of <lookbehind_regex>
+re.search('(?<!foo)bar', 'foobar')
+# Output: None
+# The lookbehind expression (?<!foo)bar matches bar only if it’s not preceded by foo.
+
+# Example 35: Using the (?#...) meta-character to add comments to a regular expression
+re.search('bar(?#This is a comment) *baz', 'foo bar baz qux')
+# Output: <_sre.SRE_Match object; span=(4, 10), match='bar baz'>
+
+# Example 36: Using the | meta-character to match either the regular expression preceding or following it
+re.search('foo|bar|baz', 'bar')
+# Output: <_sre.SRE_Match object; span=(0, 3), match='bar'>
+re.search('foo|bar|baz', 'quux')
