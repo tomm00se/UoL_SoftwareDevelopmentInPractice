@@ -14,53 +14,85 @@ The global variables are:
     NO_PATH_MARKER = Holder for no path possible. This is used for the printing function. 
 """
 from sys import maxsize
-NO_PATH =  maxsize
-GRAPH = [[0,   7,  NO_PATH, 8],
-[NO_PATH,  0,  5,  NO_PATH],
-[NO_PATH, NO_PATH, 0,   2],
-[NO_PATH, NO_PATH, NO_PATH, 0]]
+NO_PATH = maxsize
+GRAPH = [
+    [0,       7,       NO_PATH, 8],
+    [NO_PATH, 0,       5,       NO_PATH],
+    [NO_PATH, NO_PATH, 0,       2],
+    [NO_PATH, NO_PATH, NO_PATH, 0]
+]
 MAX_LENGTH = len(GRAPH[0])
 MIN_LEVEL = 0
 NO_PATH_MARKER = "No Path"
+
 
 def main():
     """
     This is the calling function for the recursive floyd's algorithm
     """
     # function call to recursive_floyd_warshall needs to be here
+    recursive_floyd_warshall(MIN_LEVEL, MIN_LEVEL, MIN_LEVEL)
 
-    #uncomment next line when you have completed the task
-    #print_out_graph()
+    # uncomment next line when you have completed the task
+    print_out_graph()
+
 
 def print_out_graph():
     """
     This function prints out the graph with the distances
     and a place holder for no path between nodes
     """
-    for start_node in range(0,MAX_LENGTH):
-        for end_node in range(0,MAX_LENGTH):
+    for start_node in range(0, MAX_LENGTH):
+        for end_node in range(0, MAX_LENGTH):
             distance = GRAPH[start_node][end_node]
             if distance == NO_PATH:
-                distance = NO_PATH_MARKER 
+                distance = NO_PATH_MARKER
 
             message = "Distance from Node %s to Node %s is %s" %\
-                (start_node,end_node,distance)
-            print (message)
-def recursive_floyd_warshall(outer_loop:int, middle_loop:int, inner_loop:int):
-        """
-        This function computes shortest path between each pair node
-        It computes by comparing a direct path with paths that have 
-        intermediate nodes in the path.
+                (start_node, end_node, distance)
+            print(message)
 
-        The recursive path is the shortest path function which
-        calls itself to find the shortest path between a pair of nodes
 
-        You need to increment each variable until it reaches a loop
+def recursive_floyd_warshall(outer_loop: int, middle_loop: int, inner_loop: int):
+    """
+    This function computes shortest path between each pair node
+    It computes by comparing a direct path with paths that have 
+    intermediate nodes in the path.
 
-        param: outer_loop: This variable is from the first loop of the iterative version
-        param: middle_loop: This variable is from the second loop of the iterative version
-        param: inner_loop: This variable is from the last loop of the iterative version
-        """
-                
+    The recursive path is the shortest path function which
+    calls itself to find the shortest path between a pair of nodes
+
+    You need to increment each variable until it reaches a loop
+
+    param: outer_loop: This variable is from the first loop of the iterative version
+    param: middle_loop: This variable is from the second loop of the iterative version
+    param: inner_loop: This variable is from the last loop of the iterative version
+    """
+
+    # Base case
+    # If inner loop is at its max length it will increment up the loops till it reaches the outer loop, ending the recursion.
+    if outer_loop == MAX_LENGTH:
+        return
+
+    if middle_loop == MAX_LENGTH:
+        return recursive_floyd_warshall(outer_loop + 1, MIN_LEVEL, MIN_LEVEL)
+
+    if inner_loop == MAX_LENGTH:
+        return recursive_floyd_warshall(outer_loop, middle_loop + 1, MIN_LEVEL)
+
+    # This variable uses middle loop as the intermediate node to find the shortest path between the outer and inner loop
+    potential_path_distance = GRAPH[middle_loop][inner_loop] + \
+        GRAPH[outer_loop][middle_loop]
+    # This variable is the direct path between the outer and inner loop
+    known_path_distance = GRAPH[outer_loop][inner_loop]
+
+    # Recursive case
+    if potential_path_distance < known_path_distance:
+        GRAPH[outer_loop][inner_loop] = GRAPH[middle_loop][inner_loop] + \
+            GRAPH[outer_loop][middle_loop]
+
+    return recursive_floyd_warshall(outer_loop, middle_loop, inner_loop + 1)
+
+
 if __name__ == "__main__":
     main()
