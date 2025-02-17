@@ -18,12 +18,17 @@ def performance_test(function_handle):
 
     Please complete this function
     """
+    start = process_time()
+    function_handle()
+    end = process_time()
+    print("Time taken: ", (end - start) * 1000)
+
 
     pass
-    
 
 print ("Recursion Test Time")
-performance_test(recursive_floyd_warshall)
+performance_test(lambda: recursive_floyd_warshall(0,0,0))
+# Lamda is used here to pass the recursive_floyd_warshall with parameters to the performance_test function by wrapping it in a lambda function that can be called with no params.
 
 print ("Iterative Test Time")
 performance_test(iterative_floyd)
