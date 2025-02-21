@@ -78,7 +78,7 @@ def recursive_floyd_warshall(graph: list, outer_loop: int, middle_loop: int, inn
         return
     
     if outer_loop == MAX_LENGTH:
-        return
+        return graph
 
     if middle_loop == MAX_LENGTH:
         return recursive_floyd_warshall(graph, outer_loop + 1, MIN_LEVEL, MIN_LEVEL)
