@@ -30,10 +30,8 @@ def main():
     """
     This is the calling function for the recursive floyd's algorithm
     """
-    # function call to recursive_floyd_warshall needs to be here
     recursive_floyd_warshall(MIN_LEVEL, MIN_LEVEL, MIN_LEVEL)
 
-    # uncomment next line when you have completed the task
     print_out_graph()
 
 
