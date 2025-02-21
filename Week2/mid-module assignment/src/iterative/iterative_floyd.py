@@ -62,5 +62,7 @@ def iterative_floyd():
            
            GRAPH[start_node][end_node] = min(GRAPH[start_node][end_node],
                                  GRAPH[start_node][intermediate] + GRAPH[intermediate][end_node] )       
+           
+    return GRAPH
 if __name__ == "__main__":
     main()
