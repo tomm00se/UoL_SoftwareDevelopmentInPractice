@@ -75,7 +75,7 @@ def recursive_floyd_warshall(graph: list, outer_loop: int, middle_loop: int, inn
     # Base case
     # If inner loop is at its max length it will increment up the loops till it reaches the outer loop, ending the recursion.
     if not graph:
-        return
+        return 
     
     if outer_loop == len(graph[0]):
         return graph
