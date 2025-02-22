@@ -77,13 +77,13 @@ def recursive_floyd_warshall(graph: list, outer_loop: int, middle_loop: int, inn
     if not graph:
         return
     
-    if outer_loop == MAX_LENGTH:
+    if outer_loop == len(graph[0]):
         return graph
 
-    if middle_loop == MAX_LENGTH:
+    if middle_loop == len(graph[0]):
         return recursive_floyd_warshall(graph, outer_loop + 1, MIN_LEVEL, MIN_LEVEL)
 
-    if inner_loop == MAX_LENGTH:
+    if inner_loop == len(graph[0]):
         return recursive_floyd_warshall(graph, outer_loop, middle_loop + 1, MIN_LEVEL)
 
     # This variable uses middle loop as the intermediate node to find the shortest path between the outer and inner loop
