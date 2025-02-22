@@ -6,7 +6,7 @@ imperative version
 
 import sys
 sys.path.append('../')
-from recursion.recursive_floyd import recursive_floyd_warshall
+from recursion.recursive_floyd import recursive_floyd_warshall,GRAPH
 from iterative.iterative_floyd import iterative_floyd
 from time import process_time
 
@@ -27,7 +27,7 @@ def performance_test(function_handle):
     pass
 
 print ("Recursion Test Time")
-performance_test(lambda: recursive_floyd_warshall(0,0,0))
+performance_test(lambda: recursive_floyd_warshall(GRAPH,0,0,0))
 # Lamda is used here to pass the recursive_floyd_warshall with parameters to the performance_test function by wrapping it in a lambda function that can be called with no params.
 
 print ("Iterative Test Time")
