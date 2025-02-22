@@ -90,10 +90,10 @@ def recursive_floyd_warshall(graph: list, outer_loop: int, middle_loop: int, inn
     potential_path_distance = graph[middle_loop][inner_loop] + \
         graph[outer_loop][middle_loop]
     # This variable is the direct path between the outer and inner loop
-    known_path_distance = graph[outer_loop][inner_loop]
+    direct_path_distance = graph[outer_loop][inner_loop]
 
     # Recursive case
-    if potential_path_distance < known_path_distance:
+    if potential_path_distance < direct_path_distance:
         graph[outer_loop][inner_loop] = graph[middle_loop][inner_loop] + \
             graph[outer_loop][middle_loop]
 
